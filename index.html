@@ -49,7 +49,7 @@
 		var tx = JSON.parse(evt.data);
 		if(filterYourTX(tx,youraddress))
 		{
-    	writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
+    	writeToScreen('<br><br><span style="color: blue;font-size:12px;">' + evt.data+'</span>');
     	//writeToScreen('<span style="color: blue;">RESPONSE: ' + tx.x.hash +'</span>');
     	//writeToScreen('<span style="color: blue;">RESPONSE: ' + tx.x.out[0].value +'</span>');
 			checkrules(tx,youraddress);//安全等級不高的交易建議等1+個確認
@@ -90,7 +90,8 @@
 </script>
 
 <h2>Check the zero-confirmations immediate tiny-payment security</h2>
-<p>your address<input id="youraddress" value="" type="text" placeholder="Paste address and press Enter"/>Donate: 1ExS91WA8tmZkN8MCFZ75QshpqdSwe1rYH</p>
+<p>If you like this website, please consider donating some Bitcoins to:<br>Donate: 1ExS91WA8tmZkN8MCFZ75QshpqdSwe1rYH</p>
+<p>your address<input id="youraddress" value="" type="text" placeholder="Paste address and press Enter"/></p>
 <div id="output"></div>
 
 <p>Highly Alpha.Use at your own risk.</p>
