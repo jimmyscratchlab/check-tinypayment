@@ -1,49 +1,97 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html> 
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Check-tinypayment : Check the zero-confirmations immediate bitcoin tiny-payment security" />
+<meta charset="utf-8" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<title>Check the zero-confirmations immediate tiny-payment security</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="./checktx.js"></script>
+<script language="javascript" type="text/javascript">
 
-    <title>Check-tinypayment</title>
-  </head>
+  var wsUri = "ws://ws.blockchain.info/inv";
+  var output;
+	var youraddress='';
 
-  <body>
+  function init()
+  {
+		youraddress=$('#youraddress').val();
+		$('#youraddress').change(function(){
+  		youraddress = this.value;
+		});
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/jimmyscratchlab/check-tinypayment">View on GitHub</a>
+    output = document.getElementById("output");
+    connectWebSocket();
+  }
 
-          <h1 id="project_title">Check-tinypayment</h1>
-          <h2 id="project_tagline">Check the zero-confirmations immediate bitcoin tiny-payment security</h2>
+  function connectWebSocket()
+  {
+    websocket = new WebSocket(wsUri);
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+  }
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/jimmyscratchlab/check-tinypayment/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/jimmyscratchlab/check-tinypayment/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+  function onOpen(evt)
+  {
+    writeToScreen("CONNECTED");
+    doSend('{"op":"unconfirmed_sub"}');
+  }
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <p>Hello World</p>
-      </section>
-    </div>
+  function onClose(evt)
+  {
+    //writeToScreen("DISCONNECTED");
+  }
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Check-tinypayment maintained by <a href="https://github.com/jimmyscratchlab">jimmyscratchlab</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+  function onMessage(evt)
+  {
+//writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
 
-    
+		var tx = JSON.parse(evt.data);
+		if(filterYourTX(tx,youraddress))
+		{
+    	writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
+    	//writeToScreen('<span style="color: blue;">RESPONSE: ' + tx.x.hash +'</span>');
+    	//writeToScreen('<span style="color: blue;">RESPONSE: ' + tx.x.out[0].value +'</span>');
+			checkrules(tx,youraddress);//安全等級不高的交易建議等1+個確認
+		}
+    websocket.close();
 
-  </body>
-</html>
+  }
+
+  function onError(evt)
+  {
+    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+  }
+
+  function doSend(message)
+  {
+    //writeToScreen("SENT: " + message); 
+    websocket.send(message);
+  }
+
+  function writeToScreen(message)
+  {
+    var pre = document.createElement("p");
+    pre.style.wordWrap = "break-word";
+    pre.innerHTML = message;
+    output.appendChild(pre);
+  }
+
+  function writeToChklist(message)
+  {
+    var pre = document.createElement("i");
+    pre.style.wordWrap = "break-word";
+    pre.innerHTML = message;
+    output.appendChild(pre);
+  }
+
+  window.addEventListener("load", init, false);
+
+</script>
+
+<h2>Check the zero-confirmations immediate tiny-payment security</h2>
+<p>your address<input id="youraddress" value="" type="text" placeholder="Paste address and press Enter"/>Donate: 1ExS91WA8tmZkN8MCFZ75QshpqdSwe1rYH</p>
+<div id="output"></div>
+
+<p>Highly Alpha.Use at your own risk.</p>
+</html> 
