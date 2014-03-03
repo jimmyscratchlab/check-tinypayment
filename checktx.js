@@ -1,20 +1,24 @@
+﻿/* 	checktx.js by jimmyscratchlab@gmail.com
+		checktx.js is licensed under the MIT License, see LICENSE.
+*/
+
 	var risk=0;
 	
 	function checkrules(tx,address)   
 	{
+		address = address.trim();
 		checknodust(tx);
 		checksmallmoney(tx,address);
 		checkFee(tx);
 		checksize(tx);
 		checkNoTimelock(tx);
-		checkMiningNodes(tx);//最好大於6
-		//checkRelayedCount(tx);//最好大於500 
-		reportRisk(); 
+		reportRisk();
+		showMiningNodesAndRelayedCount(tx); 
 	}
 
 	function filterYourTX(tx,address)
 	{
-		address = address.trim();
+		
 		if(address == '')return true;
     var outs = tx.x.out;
     for (var i=0;i<outs.length;i++)
@@ -113,15 +117,19 @@
 		}
 	}
 
-	function checkMiningNodes(tx)
+	function showMiningNodesAndRelayedCount(tx)
 	{
+		//if(address == '')return true;
 		var txhash = tx.x.hash;
-		writeToChklist('<iframe id="hiddenframe'+txhash+'"  src="http://blockchain.info/inv/'+txhash+'?format=json"></iframe>');//hidden
+		writeToChklist('<p>Please check tx status <iframe id="hiddenframe'+txhash+'"  src="http://blockchain.info/inv/'+txhash+'?format=json"  height="80" width="300"></iframe>. If relayed_count < 500 and mining_nodes < 6 then wait 1+ confirmations.....');//hidden
 		
+		$("#hiddenframe"+txhash).hover(
+				function (){$(this).height(300);$(this).attr("src", $(this).attr("src"));},function (){$(this).height(100)}
+			);
 		//$("#hiddenframe"+txhash).load(function(){
 		//alert($(this).contents());
-
-		//})
+			//$(this)//$(this).attr("src", $(this).attr("src"));
+		//});
 
 
 	}
