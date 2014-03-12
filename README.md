@@ -1,4 +1,4 @@
-[![express logo](https://lh5.googleusercontent.com/-7fEXsT7vK50/UxYayPDRayI/AAAAAAAADsQ/VxgM47RJCEM/w399-h407-no/Bitcoin_ouroboros.png)
+[![express logo](http://3.bp.blogspot.com/-0tpCCjrzyFs/UyCvT5akebI/AAAAAAAADto/A4-ZwWL31Xg/s1600/bitcoin_tinypayment.png)
 
 check-tinypayment
 =================
