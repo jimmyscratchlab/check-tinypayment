@@ -121,7 +121,7 @@
 	{
 		//if(address == '')return true;
 		var txhash = tx.x.hash;
-		writeToChklist('<p>Please check tx status <iframe id="hiddenframe'+txhash+'"  src="http://blockchain.info/inv/'+txhash+'?format=json"  height="80" width="300"></iframe>. If relayed_count < 500 and mining_nodes < 6 then wait 1+ confirmations.....');//hidden
+		writeToChklist('<p style="color: green;">Please check tx status <iframe style="background-color:#b0c4de;" id="hiddenframe'+txhash+'"  src="http://blockchain.info/inv/'+txhash+'?format=json"  height="80" width="300"></iframe>. If relayed_count < 500 and mining_nodes < 6 then wait 1+ confirmations.....</p>');//hidden
 		
 		$("#hiddenframe"+txhash).hover(
 				function (){$(this).height(300);$(this).attr("src", $(this).attr("src"));},function (){$(this).height(100)}
