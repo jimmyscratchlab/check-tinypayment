@@ -1,8 +1,20 @@
 <!DOCTYPE html> 
 
-<meta charset="utf-8" />
+  <head>
+    <meta charset='utf-8' />
+    <meta name="description" content="" />
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <title>Check bitcoin tiny-payment security</title>
+  </head>
 
-<title>Check the zero-confirmations immediate tiny-payment security</title>
+
+  <div id="header_wrap" class="outer">
+		<a id="forkme_banner" href="https://github.com/jimmyscratchlab/check-tinypayment/tree/gh-pages">View on GitHub</a>
+		<img src="./images/bitcoin_tinypayment.png" alt="" >
+		<h2 id="project_title">Check the zero-confirmations immediate tiny-payment security</h2>
+  </div>
+
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="./checktx.js"></script>
 <script language="javascript" type="text/javascript">
@@ -49,7 +61,7 @@
 		var tx = JSON.parse(evt.data);
 		if(filterYourTX(tx,youraddress))
 		{
-    	writeToScreen('<br><br><span style="color: blue;font-size:12px;">' + evt.data+'</span>');
+    	writeToScreen('<br><br><span style="color: #b0c4de;font-size:12px;">' + evt.data+'</span>');
     	//writeToScreen('<span style="color: blue;">RESPONSE: ' + tx.x.hash +'</span>');
     	//writeToScreen('<span style="color: blue;">RESPONSE: ' + tx.x.out[0].value +'</span>');
 			checkrules(tx,youraddress);//安全等級不高的交易建議等1+個確認
@@ -60,7 +72,7 @@
 
   function onError(evt)
   {
-    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+    writeToScreen('<span style="color: red;">ERROR:' + evt.data+'.  Proxy may be an issue!</span>');
   }
 
   function doSend(message)
@@ -89,10 +101,11 @@
 
 </script>
 
-<h2>Check the zero-confirmations immediate tiny-payment security</h2>
-<p>If you like this website, please consider donating some Bitcoins to:<br>Donate: 1ExS91WA8tmZkN8MCFZ75QshpqdSwe1rYH</p>
-<p>your address<input id="youraddress" value="" type="text" placeholder="Paste address and press Enter"/></p>
+
+
+<p style="color: white;">If you like this website, please consider donating some Bitcoins to:<br>Donate: 1ExS91WA8tmZkN8MCFZ75QshpqdSwe1rYH</p>
+<p  style="color: white;">your address<input id="youraddress" value="" type="text" placeholder="Paste address and press Enter"/></p>
 <div id="output"></div>
 
-<p>Highly Alpha.Use at your own risk.</p>
+<p  style="color: white;">Highly Alpha.Use at your own risk.</p>
 </html> 
