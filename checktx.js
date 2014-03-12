@@ -48,7 +48,7 @@
 	
 	function checksmallmoney(tx,address)
 	{
-		var smallmoney = 100000;//satoshi
+		var smallmoney = 1000000;//satoshi
 		if(address == '')return;
     var outs = tx.x.out;
     for (var i=0;i<outs.length;i++)
